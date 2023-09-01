@@ -1,0 +1,16 @@
+version: '3.1'
+
+services:
+  postgres:
+    container_name: PostgreSQL_Orders
+    restart: always
+    image: postgres:12.4
+    environment:
+      - POSTGRES_DB=jpa_demo
+      - POSTGRES_USER=ababab
+      - POSTGRES_PASSWORD=bababa
+      - POSTGRES_MULTIPLE_DATABASES=jpa_demo
+    volumes:
+      - ./init.sh:/docker-entrypoint-initdb.d/init-database.sh
+    ports:
+      - 5432:5432

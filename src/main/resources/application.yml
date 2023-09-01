@@ -1,0 +1,32 @@
+spring:
+  datasource:
+    url: ${DATABASE_URL}?reWriteBatchedInserts=true
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+    hikari:
+      connection-test-query: ${DATABASE_CONNECTION_TEST_QUERY:SELECT 1}
+      minimum-idle: ${DATABASE_MINIMUM_IDLE_MS:1}
+      maximum-pool-size: ${DATABASE_POOL_SIZE:30}
+      connection-timeout: ${DATABASE_CONNECTION_TIMEOUT_MS:30000}
+      max-lifetime: ${DATABASE_CONNECTION_MAX_LIFETIME_MS:300000}
+      jdbc-url: ${spring.datasource.url}
+      username: ${spring.datasource.username}
+      password: ${spring.datasource.password}
+  jpa:
+    properties:
+      hibernate:
+        jdbc:
+          batch_size: ${JPA_BATCH_SIZE:2000}
+          order_inserts: ${JPA_ORDER_INSERTS_ENABLED:true}
+        generate_statistics: ${JPA_GENERATE_STATISTICS_ENABLED:false}
+        event:
+          merge:
+            entity_copy_observer: allow
+    hibernate:
+      ddl-auto: ${JPA_DDL_AUTO:update}
+    open-in-view: ${JPA_OPEN_IN_VIEW:false}
+#  flyway:
+#    locations: classpath:db
+#    hibernate:
+#      naming:
+#        physical-strategy: 'org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy'
