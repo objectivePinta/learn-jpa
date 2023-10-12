@@ -1,7 +1,8 @@
-#logging:
-#  level:
-#    org.hibernate.SQL: DEBUG
-#    org.hibernate.type: DEBUG
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.orm.jdbc.bind: TRACE
+
 #    jdbc.sqlonly: DEBUG
 spring:
   jpa:

@@ -1,17 +1,12 @@
 package com.learn.jpa;
 
 
-import com.learn.jpa.model.Course;
 import com.learn.jpa.repo.*;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 
 @SpringBootTest
@@ -20,7 +15,7 @@ import java.util.stream.Collectors;
 class CommentTest {
 
     @Autowired
-    CommentRepo commentRepo;
+    CommentRepository commentRepo;
 
     @Test
     void testCommentRepo() {

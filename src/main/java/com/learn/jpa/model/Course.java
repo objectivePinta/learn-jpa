@@ -23,6 +23,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -43,6 +44,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Setter
+@ToString(exclude = {"teacher", "students"})
 public class Course extends AbstractEntity<Long> {
 
 
@@ -53,7 +55,7 @@ public class Course extends AbstractEntity<Long> {
   @JsonManagedReference // is the forward part of reference, the one that gets serialized normally
   private Set<Student> students = new HashSet<>(0);
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne()
   @JoinColumn(name = "TEACHER_ID", nullable = false)
   @JsonManagedReference // is the forward part of reference, the one that gets serialized normally
   private Teacher teacher;

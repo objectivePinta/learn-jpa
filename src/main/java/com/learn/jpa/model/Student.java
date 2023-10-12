@@ -23,6 +23,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -43,6 +44,7 @@ import java.util.Set;
                       attributeNodes = @NamedAttributeNode(value = "courses", subgraph = "courses"),
                       subgraphs = @NamedSubgraph(name = "courses", attributeNodes = @NamedAttributeNode("teacher")))
 })
+@ToString(exclude = "courses")
 //student-courses-teachers-entity-graph -> brings the courses of a student, and for each course it brings the teacher
 public class Student extends AbstractEntity<Long> {
 

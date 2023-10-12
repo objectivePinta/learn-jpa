@@ -8,8 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.stream.Stream;
 
 
-public interface CourseRepo extends JpaRepository<Course, Long> {
+public interface CourseRepository extends JpaRepository<Course, Long> {
 
-  @Query("FROM Course c")
-  Stream<Course> queryAllStreaming ();
 }

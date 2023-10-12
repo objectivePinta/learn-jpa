@@ -2,9 +2,9 @@ package com.learn.jpa;
 
 
 import com.learn.jpa.model.Course;
-import com.learn.jpa.repo.CourseStudentRepo;
-import com.learn.jpa.repo.CourseTeacherRepo;
-import com.learn.jpa.repo.StudentCoursesRepo;
+import com.learn.jpa.repo.CourseStudentRepository;
+import com.learn.jpa.repo.CourseTeacherRepository;
+import com.learn.jpa.repo.StudentCoursesRepository;
 import com.learn.jpa.repo.StudentCoursesTeachersRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -23,16 +23,28 @@ import java.util.stream.Collectors;
 class CourseEntityGraphsTest {
 
   @Autowired
-  CourseStudentRepo courseStudentRepo;
+  CourseStudentRepository courseStudentRepo;
 
   @Autowired
-  CourseTeacherRepo courseTeacherRepo;
+  CourseTeacherRepository courseTeacherRepo;
 
   @Autowired
   StudentCoursesTeachersRepo studentCoursesTeachersRepo;
 
   @Autowired
-  StudentCoursesRepo studentCoursesRepo;
+  StudentCoursesRepository studentCoursesRepo;
+
+
+  @Test
+  @Transactional
+  void getAllStudentsClassic () {
+
+    List<Course> coursesWithStudentsClassicQuery = courseStudentRepo.findAll();
+    coursesWithStudentsClassicQuery.forEach(course -> {
+      System.out.println("Course with id:" + course.getId() + " has " + course.getStudents()
+          .size() + " students");
+    });
+  }
 
 
   /**
@@ -64,12 +76,12 @@ class CourseEntityGraphsTest {
         t1_0.id=?
    */
   @Test
-  @Transactional
   void getStudentsOfACourseWithoutTeachers () {
 
+    List<Course> coursesWithStudentsEG = courseStudentRepo.getAllCoursesWithStudentsUsingEntityGraph();
 
-    List<Course> coursesWithStudents = courseStudentRepo.findAll();
-    coursesWithStudents.forEach(course -> {
+
+    coursesWithStudentsEG.forEach(course -> {
       System.out.println("Course with id:" + course.getId() + " has " + course.getStudents()
           .size() + " students");
     });
@@ -80,13 +92,13 @@ class CourseEntityGraphsTest {
     select t1_0.id,t1_0.name from teacher t1_0 where t1_0.id=?
     */
 
-    coursesWithStudents.forEach(course -> {
-      System.out.printf(
-          "Course %s has as a teacher %s%n",
-          course.getName(),
-          course.getTeacher().getName()
-      );
-    });
+//    coursesWithStudentsEG.forEach(course -> {
+//      System.out.printf(
+//          "Course %s has as a teacher %s%n",
+//          course.getName(),
+//          course.getTeacher().getName()
+//      );
+//    });
   }
 
 
